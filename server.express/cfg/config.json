@@ -1,0 +1,20 @@
+{
+    "srv": {
+        "port": 3000,
+        "host": "localhost",
+        "module": {
+            "load" : [
+                "gateway",
+                "peripheral"
+            ]
+        }
+    },
+    "app": {
+        "db":{
+            "name": "musala",
+            "host": "localhost",
+            "port": "27017",
+            "driver": "mongodb"
+        }
+    }
+}
