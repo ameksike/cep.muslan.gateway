@@ -13,8 +13,9 @@ It is a demo written on JavaScript over NodeJS for RESTful API Server. Is very s
 # develop steps
 - npm init
 - npm install express cors body-parser mongoose
-- npm install nodemon -D
+- npm install nodemon jest supertest -D
 - npm run dev 
+- npm run test
 
 # RESTful request format:  method => PUT | POST | DELETE | GET 
 - http://localhost:3000/gateway/77/

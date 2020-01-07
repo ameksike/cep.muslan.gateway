@@ -6,6 +6,7 @@ It is a demo written on JavaScript over NodeJS for REST API Server. Is very simp
 - cd cep.muslan.gateway/server.express/
 - npm install 
 - npm start
+- npm run test
 
 
 # install steps: Client REST Angular
@@ -13,4 +14,3 @@ It is a demo written on JavaScript over NodeJS for REST API Server. Is very simp
 - cd cep.muslan.gateway/client.angular/
 - npm install 
 - npm start
-

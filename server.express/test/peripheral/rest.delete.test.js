@@ -13,21 +13,18 @@ const tool = require( path + 'src/gateway/service/GatewayService.js');
 const { app } = require( path + 'src/app/index.js');
 const request = require('supertest').agent(app.listen());
 
-afterAll(() => {
-  tool.clean();
+beforeAll(() => {
+    tool.fill();
 });
 
-describe('(REST-GATEWAY) INSERT => [POST] /gateway', function() {
+afterAll(() => {
+    tool.clean();
+});
+
+describe('(REST-PERIPHERAL) DELETE item => [DELETE] /gateway/98A/peripheral/65', function() {
     it('responds with json', function(done) {
       request
-        .post('/gateway')
-        .send({
-            "devices":[],
-            "_id":"5e1122a6c3d5b526f45214a8",
-            "sn":"99A",
-            "name":"Gateway 3",
-            "ipv4":"192.168.0.3"
-        })
+        .delete('/gateway/98A/peripheral/65')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -39,18 +36,10 @@ describe('(REST-GATEWAY) INSERT => [POST] /gateway', function() {
     });
 });
 
-  
-describe('(REST-GATEWAY) INSERT item with bad ipv4 format => [POST] /gateway', function() {
+describe('(REST-PERIPHERAL) DELETE item that not exist => [DELETE] /gateway/98A/peripheral/98888A', function() {
   it('responds with json', function(done) {
     request
-      .post('/gateway')
-      .send({
-          "devices":[],
-          "_id":"5e1122a6c3d5b526f45214a8",
-          "sn":"99A",
-          "name":"Gateway 3",
-          "ipv4":"192.168.0.300"
-      })
+      .delete('/gateway/98A/peripheral/98888A')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)

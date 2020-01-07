@@ -7,8 +7,9 @@
  * @version    	1.0
  * */
 process.env.NODE_ENV = 'test';
-const tool   = require( __dirname + '/../app/tool.js');
-const { app }  = require( __dirname + '/../../src/app/index.js');
+const path = __dirname + '/../../';
+const tool = require( path + 'src/gateway/service/GatewayService.js');
+const { app } = require( path + 'src/app/index.js');
 const request = require('supertest').agent(app.listen());
 
 beforeAll(() => {
@@ -19,7 +20,7 @@ afterAll(() => {
     tool.clean();
 });
 
-describe('SELECT PERIPHERAL ALL => GET /gateway/98A/peripheral/', () => {
+describe('(REST-PERIPHERAL) SELECT ALL => [GET] /gateway/98A/peripheral/', () => {
     test('It should response the GET method', (done) => {
         request.get('/gateway/98A/peripheral/').then((response) => {
             expect(response.body.status).toBe(true);
@@ -29,13 +30,23 @@ describe('SELECT PERIPHERAL ALL => GET /gateway/98A/peripheral/', () => {
     });
 });
 
-describe('SELECT PERIPHERAL by UID => GET /gateway/98A/peripheral/59', () => {
-
+describe('(REST-PERIPHERAL) SELECT by UID => [GET] /gateway/98A/peripheral/59', () => {
     test('It should response the GET method', (done) => {
         request.get('/gateway/98A/peripheral/59').then((response) => {
             expect(response.body.status).toBe(true);
             expect(response.statusCode).toBe(200);
-            expect(response.body).toEqual({"status":true,"message":"Success","data":{"_id":"5e11507f093d7615c015f505","uid":59,"vendor":"Device 1","status":true,"created":"2020-01-05T07:31:05.417Z"}});
+            expect(response.body).toEqual({"status":true,"message":"Success","data":{"_id":"5e11507f093d7615c015f505","uid":59,"vendor":"Device 1","status":true,"created":"2020-01-05"}});
+            done();
+        });
+    });
+});
+
+
+describe('(REST-PERIPHERAL) SELECT item that not exist => [GET] /gateway/98A/peripheral/59999', () => {
+    test('It should response the GET method', (done) => {
+        request.get('/gateway/98A/peripheral/59999').then((response) => {
+            expect(response.body.status).toBe(false);
+            expect(response.statusCode).toBe(200);
             done();
         });
     });
