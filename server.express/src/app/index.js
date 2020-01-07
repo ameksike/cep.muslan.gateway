@@ -6,10 +6,15 @@
  * @license    	GPL
  * @version    	1.0
  * */
-var config = require('../../cfg/config.json');
+
+var config = require( __dirname + '/../../cfg/config.json');
 var express = require("express");
 var app = express();
 var mod = [];
+
+//... Set config base on NODE_ENV
+process.env.NODE_ENV = !isTestEnv() ? 'dev' : 'test';
+config = config.env[process.env.NODE_ENV];
 
 //... Set response config
 var bodyParser = require("body-parser");
@@ -35,7 +40,16 @@ config.srv.module.load.forEach(name => {
     }
 });
 
-//... Init server
-app.listen(config.srv.port, () => {
-	console.log("<------------> Server listen on http://"+config.srv.host+":"+config.srv.port);
-});
+
+global.log = function(data){
+    if(!isTestEnv())
+        console.log(data);
+}
+function isTestEnv(){
+    return process.env.NODE_ENV === 'test';
+}
+module.exports.app = app;
+module.exports.config = config;
+module.exports.env = {
+    isTest: isTestEnv
+};

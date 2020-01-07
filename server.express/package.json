@@ -5,9 +5,9 @@
   "author": "Antonio Membrides Espinosa, tonykssa@gmail.com",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app/",
-    "dev": "nodemon src/app/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app/server.js",
+    "dev": "nodemon src/app/server.js",
+    "test": "jest --forceExit --detectOpenHandles  --watchAll --maxWorkers=1 --testTimeout=10000"
   },
   "license": "GPL",
   "dependencies": {
@@ -27,6 +27,8 @@
     "chai-http": "^4.3.0",
     "jest": "^24.9.0",
     "mocha": "^7.0.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "mockgoose": "^8.0.4",
+    "supertest": "^4.0.2"
   }
 }

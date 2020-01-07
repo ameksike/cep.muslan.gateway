@@ -7,7 +7,7 @@
  * @license    	GPL
  * @version    	1.0
  * */
-var BaseDAO = require( __dirname + '/../../app/BaseDAO.js');
+var BaseDAO = require( __dirname + '/../../app/base/BaseDAO.js');
 var GatewayDTO = require( __dirname + '/../../gateway/model/GatewayDTO.js');
 var PeripheralDTO = require( __dirname + '/PeripheralDTO.js');
 

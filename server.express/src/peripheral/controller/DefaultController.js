@@ -6,8 +6,8 @@
  * @license    	GPL
  * @version    	1.0
  * */
-var BaseController = require( __dirname + '/../../app/BaseController.js');
-var BaseValidator = require( __dirname + '/../../app/BaseValidator.js');
+var BaseController = require( __dirname + '/../../app/base/BaseController.js');
+var BaseValidator = require( __dirname + '/../../app/base/BaseValidator.js');
 var PeripheralDAO = require( __dirname + '/../model/PeripheralDAO.js');
 
 class DefaultController extends BaseController{

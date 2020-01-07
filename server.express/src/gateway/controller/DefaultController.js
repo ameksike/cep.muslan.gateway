@@ -6,8 +6,8 @@
  * @license    	GPL
  * @version    	1.0
  * */
-var BaseController = require( __dirname + '/../../app/BaseController.js');
-var BaseValidator = require( __dirname + '/../../app/BaseValidator.js');
+var BaseController = require( __dirname + '/../../app/base/BaseController.js');
+var BaseValidator = require( __dirname + '/../../app/base/BaseValidator.js');
 var GatewayDAO = require( __dirname + '/../model/GatewayDAO.js');
 
 class DefaultController extends BaseController{
@@ -77,6 +77,11 @@ class DefaultController extends BaseController{
         this.gatewayDAO.fill(result => {
             res.json(result);
         }, data);
+    }
+    clean(req, res){
+        this.gatewayDAO.clean(result => {
+            res.json(result);
+        });
     }
 }
 module.exports = DefaultController;

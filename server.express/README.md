@@ -1,5 +1,5 @@
-# EXPRESS MONGODB REST Gateway Demo Project 
-It is a demo written on JavaScript over NodeJS for REST API Server. Is very simple project with one used Express, MongoDB.
+# EXPRESS MONGODB RESTful API Gateway Demo Project 
+It is a demo written on JavaScript over NodeJS for RESTful API Server. Is very simple project with one used: Express, MongoDB.
 
 # install steps
 - git clone https://github.com/ameksike/cep.muslan.gateway.git
@@ -16,11 +16,11 @@ It is a demo written on JavaScript over NodeJS for REST API Server. Is very simp
 - npm install nodemon -D
 - npm run dev 
 
-# RESTfull request format:  method => PUT | POST | DELETE | GET 
+# RESTful request format:  method => PUT | POST | DELETE | GET 
 - http://localhost:3000/gateway/77/
 - http://localhost:3000/gateway/77/peripheral/99
 
-# RESTfull response format:
+# RESTful response format:
 - {
     "message": "the message content",
     "status": value => true | false,

@@ -6,7 +6,7 @@
  * @license    	GPL
  * @version    	1.0
  * */
-var BaseDAO = require( __dirname + '/../../app/BaseDAO.js');
+var BaseDAO = require( __dirname + '/../../app/base/BaseDAO.js');
 var GatewayDTO = require( __dirname + '/GatewayDTO.js');
 
 class GatewayDAO extends BaseDAO{
@@ -94,8 +94,6 @@ class GatewayDAO extends BaseDAO{
         this.connect(callback);
         var Gateway = this.getModel(GatewayDTO, 'gateway');
         Gateway.insertMany(data,  (error, result) => {
-            console.log(error, result);
-
             if(callback instanceof Function){
                 callback({
                     'status': error ? false : (result.length>0),
@@ -103,8 +101,21 @@ class GatewayDAO extends BaseDAO{
                     'data': data
                 });
             }
+        });   
+    }
+
+    clean(callback){
+        this.connect(callback);
+        var Gateway = this.getModel(GatewayDTO, 'gateway');
+        Gateway.deleteMany({}, (error, result) => {
+            if(callback instanceof Function){
+                callback({
+                    'status': error ? false : true, //result.deletedCount > 0
+                    'message': error ? 'Error: ' + error.message: 'Success',
+                    'data': null
+                });
+            } 
         });
-        
     }
 }
 module.exports = GatewayDAO;

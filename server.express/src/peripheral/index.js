@@ -6,7 +6,7 @@
  * @license    	GPL
  * @version    	1.0
  * */
-var BaseModule = require( __dirname + '/../app/BaseModule.js');
+var BaseModule = require( __dirname + '/../app/base/BaseModule.js');
 class PeripheralModule extends BaseModule{
     init(){
         this.prefix = "/gateway/:pid/" + this.opt.name;
