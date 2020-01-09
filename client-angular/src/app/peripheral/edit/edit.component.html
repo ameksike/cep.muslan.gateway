@@ -1,0 +1,42 @@
+<div class="row mycontainer">
+    <div class="col-md-12">
+        <form #FrmGw="ngForm" (submit)="onSave()">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                    <label for="validationSN">UID:</label>
+                    <input type="text" class="form-control is-valid" id="validationSN" name="validationSN" 
+                            placeholder="Serial Number" [(ngModel)]="model.uid" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationName">Vendor:</label>
+                        <input type="text" class="form-control is-valid" id="validationName" name="validationName" 
+                                placeholder="Name" [(ngModel)]="model.vendor" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                    <label for="validationIp">Status:</label>
+                    <input type="text" class="form-control is-invalid" id="validationIp" name="validationIp" 
+                            placeholder="IP address version 4" [(ngModel)]="model.status"  required>
+                    <div class="invalid-feedback">
+                        Please provide a valid Status.
+                    </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationName">Date:</label>
+                        <input type="text" class="form-control is-valid" id="validationName" name="validationName" 
+                                placeholder="Name" [(ngModel)]="model.created" readonly>
+                    </div> 
+                </div>
+                
+                <button class="btn btn-primary" type="submit">Save</button>
+            </form>
+    </div> 
+</div>

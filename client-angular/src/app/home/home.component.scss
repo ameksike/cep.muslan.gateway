@@ -1,0 +1,27 @@
+.Box-body:last-of-type {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+
+.markdown-body .anchor {
+    float: left;
+    padding-right: 4px;
+    margin-left: -20px;
+    line-height: 1;
+}
+
+p{
+    text-align: justify;
+}
+a {
+    color: 
+    #0366d6;
+    text-decoration: none;
+}
+a {
+    background-color: initial;
+}
+* {
+    box-sizing: border-box;
+}

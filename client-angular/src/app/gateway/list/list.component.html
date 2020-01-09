@@ -1,0 +1,32 @@
+<div class="row mycontainer">
+    <div class="col-md-12">
+      
+      <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Serial Number</th>
+                <th scope="col">Name</th>
+                <th scope="col">IPv4</th>
+                <th scope="col">
+                  Actions
+                  <span (click)="onAdd()" class="btn btn-outline-primary btn-sm">Add</span> 
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list " >
+                <th scope="row">{{item.sn}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.ipv4}}</td>
+                <td>
+                    <span (click)="onDetails(item)" class="btn btn-info btn-sm">Details</span> 
+                    <span (click)="onEdit(item)" class="btn btn-secondary btn-sm">Edit</span>
+                    <span (click)="onDelete(item)" class="btn btn-danger btn-sm">Delete</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div> 
+</div>

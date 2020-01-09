@@ -1,0 +1,45 @@
+<div class="row mycontainer">
+    <div class="col-md-12">
+        <form #FrmGw="ngForm" (submit)="onSave()">
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationSN">Serial Number</label>
+                    <input type="text" class="form-control is-valid" id="validationSN" name="validationSN" 
+                            placeholder="Serial Number" [(ngModel)]="model.sn" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="validationName">Name</label>
+                    <input type="text" class="form-control is-valid" id="validationName" name="validationName" 
+                            placeholder="Name" [(ngModel)]="model.name" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationIp">IP address version 4</label>
+                    <input type="text" class="form-control is-invalid" id="validationIp" name="validationIp" 
+                            placeholder="IP address version 4" [(ngModel)]="model.ipv4"  required>
+                    <div class="invalid-feedback">
+                      Please provide a valid IPv4 address.
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                      <label for="validationName">Device count</label>
+                      <input type="text" class="form-control is-valid" id="validationName" name="validationName" 
+                              placeholder="Name" [(ngModel)]="model.devices.length" readonly>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                      <span (click)="onPhDetails(model)"  class="btn btn-secondary ">Edit Devices</span>
+                  </div>
+                </div>
+                
+                <button class="btn btn-primary" type="submit">Save</button>
+          </form>
+    </div> 
+</div>
