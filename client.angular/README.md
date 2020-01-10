@@ -25,6 +25,7 @@ It is a client RESTful services writed on Angular, require a server RESTful serv
 - npm install ngx-bootstrap bootstrap jquery --save
 
 - ng generate component Home
+- ng generate component home/component/message
 - ng generate component About
 - ng generate component P404
 

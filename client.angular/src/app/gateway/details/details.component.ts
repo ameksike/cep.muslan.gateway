@@ -10,21 +10,27 @@ import { GatewayService } from './../service/gateway.service';
 })
 export class DetailsComponent implements OnInit {
   model: GatewayModel;
-  
+  countEl:  Number;   
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private srvGateway: GatewayService) { 
     this.model = new GatewayModel();
+    this.countEl = 0;
   }
 
   reloadData(id) {
     this.srvGateway.select(id).subscribe(res => {
         this.model = res.data;
         this.model.devices = !this.model.devices ? [] : this.model.devices;
+        this.countEl = this.model instanceof Array ? this.model.devices.length : 0;
     });
   }
 
   ngOnInit() {
     let id = this.activatedRoute.snapshot.params.id;
     this.reloadData(id) ;
+  }
+
+  goback (target){
+    this.router.navigate(['/gateway/']);
   }
 
   onPeripheral(target){

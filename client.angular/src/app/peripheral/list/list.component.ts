@@ -45,6 +45,10 @@ export class ListComponent implements OnInit {
     this.router.navigate([this.getUrl(), '-1']);
   }
 
+  goback(){
+    this.router.navigate(['/gateway/'+ this.pid ]);
+  }
+
   onDelete(item: PeripheralModel) {
     this.srvPeripheral.delete(this.pid, item.uid)
     .subscribe(

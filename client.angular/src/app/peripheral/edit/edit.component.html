@@ -1,42 +1,55 @@
 <div class="row mycontainer">
     <div class="col-md-12">
-        <form #FrmGw="ngForm" (submit)="onSave()">
+
+        <form #FrmMn="ngForm" (submit)="onSave()">
+
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                    <label for="validationSN">UID:</label>
-                    <input type="text" class="form-control is-valid" id="validationSN" name="validationSN" 
-                            placeholder="Serial Number" [(ngModel)]="model.uid" required>
-                    <div class="valid-feedback">
-                        Looks good!
+                        <label for="uid">UID:</label>
+                        <input type="number" class="form-control" [ngClass]="uid.valid ? 'is-valid' : 'is-invalid'" id="uid" name="uid" #uid="ngModel"
+                                placeholder="Serial Number"  [(ngModel)]="model.uid" required>
+                        <div class="invalid-feedback" [hidden]="uid.valid || uid.pristine">
+                            Set the correct value for UID.
+                        </div>
                     </div>
-                    </div>
+
+
                     <div class="col-md-6 mb-3">
-                        <label for="validationName">Vendor:</label>
-                        <input type="text" class="form-control is-valid" id="validationName" name="validationName" 
-                                placeholder="Name" [(ngModel)]="model.vendor" required>
-                        <div class="valid-feedback">
-                            Looks good!
+                        <label for="vendor">Vendor:</label>
+                        <input type="text" class="form-control " [ngClass]="vendor.valid ? 'is-valid' : 'is-invalid'" id="vendor" name="vendor" #vendor="ngModel"
+                                placeholder="Vendor"   [(ngModel)]="model.vendor" required>
+                        <div class="invalid-feedback" [hidden]="vendor.valid || vendor.pristine">
+                            Set the correct value for Vendor.
                         </div>
                     </div>
                 </div>
     
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                    <label for="validationIp">Status:</label>
-                    <input type="text" class="form-control is-invalid" id="validationIp" name="validationIp" 
-                            placeholder="IP address version 4" [(ngModel)]="model.status"  required>
-                    <div class="invalid-feedback">
-                        Please provide a valid Status.
+                        <label for="sts">Status:</label>
+                        <input class="form-control form-check-input" type="checkbox" id="sts" name="sts" #sts="ngModel" 
+                                placeholder="Status" type="checkbox" [(ngModel)]="model.status" >
                     </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="validationName">Date:</label>
-                        <input type="text" class="form-control is-valid" id="validationName" name="validationName" 
-                                placeholder="Name" [(ngModel)]="model.created" readonly>
+
+                    <div class="col-md-6 mb-3"> 
+                        <label for="date">Date:</label>
+                        <input class="form-control is-valid"  [ngClass]="vendor.valid ? 'is-valid' : 'is-invalid'" id="date" name="date" #date="ngModel" 
+                                placeholder="Name" type="date" [(ngModel)]="model.created" required>
+                        <div class="invalid-feedback" [hidden]="date.valid || date.pristine">
+                            Set the correct value for created date.
+                        </div>
                     </div> 
+
                 </div>
                 
-                <button class="btn btn-primary" type="submit">Save</button>
+                <button class="btn btn-primary btn-sm" [disabled]="!FrmMn.form.valid" type="submit">Save</button>
+                <span  class="btn btn-danger btn-sm" (click)="onReset()">Reset</span>
+                <span (click)="goback()" class="btn btn-secondary btn-sm">Goback </span>
             </form>
     </div> 
-</div>
+
+
+
+
+
+

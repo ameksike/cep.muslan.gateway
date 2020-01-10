@@ -1,3 +1,4 @@
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -13,18 +14,21 @@ import { AboutComponent } from './about/about.component';
 import { P404Component } from './p404/p404.component';
 import { GatewayModule } from './gateway/gateway.module';
 import { PeripheralModule } from './peripheral/peripheral.module';
+import { MessageComponent } from './home/component/message/message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    P404Component
+    P404Component,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgbModule,
+    NgbModule,FormsModule,
+    ReactiveFormsModule,
     GatewayModule,
     PeripheralModule,
     AppRoutingModule

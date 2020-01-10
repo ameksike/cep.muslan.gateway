@@ -22,6 +22,14 @@ export class DetailsComponent implements OnInit {
     });
   }
 
+  getUrl(){
+    return '/gateway/'+ this.pid + '/peripheral/';
+  }
+
+  goback(){
+    this.router.navigate([this.getUrl()]);
+  }
+
   ngOnInit() {
     let id = this.activatedRoute.snapshot.params.id;
     this.pid = this.activatedRoute.snapshot.params.pid;
