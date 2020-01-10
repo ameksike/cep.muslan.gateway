@@ -1,9 +1,18 @@
+/*
+ * @author		  Antonio Membrides Espinosa
+ * @email    	  tonykssa@gmail.com
+ * @date		    07/01/2020
+ * @copyright  	Copyright (c) 2020-2030
+ * @license    	GPL
+ * @version    	1.0
+ * */
 import { PeripheralService } from './../service/peripheral.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PeripheralModel } from './../model/peripheral-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'src/app/home/component/message/message.service';
 
 @Component({
   selector: 'app-edit',
@@ -25,7 +34,8 @@ export class EditComponent implements OnInit {
       private router: Router, 
       private activatedRoute: ActivatedRoute, 
       private srvPeripheral: PeripheralService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private srvMessage: MessageService
     ) {
     this.model = new PeripheralModel();
     this.model.status = false;
@@ -47,6 +57,9 @@ export class EditComponent implements OnInit {
     if(this.id != -1){
       this.srvPeripheral.select(this.pid, this.id).subscribe(res => {
         this.model = res.data;
+        if(!res.data['status']){
+          this.srvMessage.error(res.data['message']);
+        }
       });
     }
   }
@@ -54,7 +67,11 @@ export class EditComponent implements OnInit {
   reloadData() {
     this.srvPeripheral.list(this.pid).subscribe(res => {
         this.model = res.data;
-    });
+        if(!res.data['status']){
+          this.srvMessage.error(res.data['message']);
+        }
+    },
+    error => this.srvMessage.error(error.message));
   }
 
   onSave(){
@@ -63,15 +80,23 @@ export class EditComponent implements OnInit {
           this.srvPeripheral.update(this.pid, this.model.uid, this.model).subscribe(
               data => {
                 console.log(data);
+                if(!data['status']){
+                  this.srvMessage.error(data['message']);
+                }
               },
-              error => console.log(error)
+              error => this.srvMessage.error(error.message)
           );
       }else{
         this.srvPeripheral.insert(this.pid, this.model).subscribe(
             data => {
               console.log(data);
+              if(!data['status']){
+                this.srvMessage.error(data['message']);
+              }else{
+                this.srvMessage.success(data['message']);
+              }
             },
-            error => console.log(error)
+            error => this.srvMessage.error(error.message)
         );
       }
     }else{

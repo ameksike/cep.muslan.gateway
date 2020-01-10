@@ -1,8 +1,17 @@
+/*
+ * @author		  Antonio Membrides Espinosa
+ * @email    	  tonykssa@gmail.com
+ * @date		    07/01/2020
+ * @copyright  	Copyright (c) 2020-2030
+ * @license    	GPL
+ * @version    	1.0
+ * */
 import { PeripheralService } from './../service/peripheral.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PeripheralModel } from '../model/peripheral-model';
+import { MessageService } from 'src/app/home/component/message/message.service';
 
 @Component({
   selector: 'app-list',
@@ -14,13 +23,20 @@ export class ListComponent implements OnInit {
   pid: string;
   list: Observable<any[]>;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private srvPeripheral:PeripheralService) { }
+  constructor(
+      private router: Router, 
+      private activatedRoute: ActivatedRoute, 
+      private srvPeripheral:PeripheralService,
+      private srvMessage: MessageService
+    ) { }
 
   reloadData() {
     this.srvPeripheral.list(this.pid).subscribe(res => {
-      console.log(res);
-
+        console.log(res);
         this.list = res.data;
+        if(!res.data['status']){
+          this.srvMessage.error(res.data['message']);
+      }
     });
   }
 
@@ -55,7 +71,11 @@ export class ListComponent implements OnInit {
       data => {
         console.log(data);
         this.reloadData();
+        if(!data['status']){
+          this.srvMessage.error(data['message']);
+        }
       },
-      error => console.log(error));
+      error => this.srvMessage.error(error.message)
+    );
   }
 }

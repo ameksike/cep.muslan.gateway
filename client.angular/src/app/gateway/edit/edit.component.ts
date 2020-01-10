@@ -1,8 +1,17 @@
+/*
+ * @author		  Antonio Membrides Espinosa
+ * @email    	  tonykssa@gmail.com
+ * @date		    07/01/2020
+ * @copyright  	Copyright (c) 2020-2030
+ * @license    	GPL
+ * @version    	1.0
+ * */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { GatewayModel } from './../model/gateway.model';
 import { GatewayService } from './../service/gateway.service';
+import { MessageService } from 'src/app/home/component/message/message.service';
 
 @Component({
   selector: 'app-edit',
@@ -20,7 +29,8 @@ export class EditComponent implements OnInit {
       private router: Router, 
       private activatedRoute: ActivatedRoute, 
       private srvGateway: GatewayService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private srvMessage: MessageService
     ) {
       this.model = new GatewayModel();
   }
@@ -50,6 +60,7 @@ export class EditComponent implements OnInit {
     console.log(this.FrmMn.form);
     if (this.FrmMn.form.valid) {
       console.log('form submitted');
+      this.onSave();
     } else {
       this.validateAllFormFields(this.FrmMn.form);
     }
@@ -71,9 +82,6 @@ export class EditComponent implements OnInit {
     this.FrmMn.form.reset();
   }
 
-
-
-
   reloadData() {
     this.srvGateway.list().subscribe(res => {
         this.model = res.data;
@@ -82,29 +90,35 @@ export class EditComponent implements OnInit {
   }
 
   onSave(){
-   /* console.log(this.FrmGw.form.valid);
+    console.log(this.FrmMn.form.valid);
     console.log(this.model);
 
-    if(this.FrmGw.form.valid){
+    if(this.FrmMn.form.valid){
       if(this.id !== '.'){
           this.srvGateway.update(this.model.sn, this.model).subscribe(
               data => {
                 console.log(data);
+                if(!data['status']){
+                  this.srvMessage.error(data['message']);
+                }
               },
-              error => console.log(error)
+              error => this.srvMessage.error(error.message)
           );
       }else{
         this.srvGateway.insert(this.model).subscribe(
             data => {
               console.log(data);
+              if(!data['status']){
+                this.srvMessage.error(data['message']);
+              }
             },
-            error => console.log(error)
+            error => this.srvMessage.error(error.message)
         );
       }
     }else{
 
     }
-    this.FrmGw.form.markAllAsTouched();*/
+    this.FrmMn.form.markAllAsTouched();
   }
 
   onPhDetails(target){

@@ -1,7 +1,16 @@
+/*
+ * @author		  Antonio Membrides Espinosa
+ * @email    	  tonykssa@gmail.com
+ * @date		    07/01/2020
+ * @copyright  	Copyright (c) 2020-2030
+ * @license    	GPL
+ * @version    	1.0
+ * */
 import { PeripheralModel } from './../model/peripheral-model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PeripheralService } from './../service/peripheral.service';
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'src/app/home/component/message/message.service';
 
 @Component({
   selector: 'app-details',
@@ -12,14 +21,23 @@ export class DetailsComponent implements OnInit {
   model: PeripheralModel;
   pid: string;
   
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private srvPeripheral: PeripheralService) { 
+  constructor(
+      private activatedRoute: ActivatedRoute, 
+      private router: Router, 
+      private srvPeripheral: PeripheralService,
+      private srvMessage: MessageService
+    ) { 
     this.model = new PeripheralModel();
   }
 
   reloadData(id) {
     this.srvPeripheral.select(this.pid, id).subscribe(res => {
         this.model = res.data;
-    });
+        if(!res.data['status']){
+          this.srvMessage.error(res.data['message']);
+        }
+    },
+    error => this.srvMessage.error(error.message));
   }
 
   getUrl(){
