@@ -30,6 +30,9 @@ export class ListComponent implements OnInit {
   reloadData() {
     this.srvGateway.list().subscribe(res => {
         this.list = res.data;
+        if(! res.data['status']){
+          this.srvMessage.error(res.data['message']);
+        }
     });
   }
 
@@ -53,11 +56,17 @@ export class ListComponent implements OnInit {
     this.srvGateway.delete(item.sn)
     .subscribe(
       data => {
-        console.log(data);
-        if(!data['status']){
+        if(!(data instanceof Object))
+          data = JSON.parse(data);
+
+          console.log(data);
+
+          if(!data['status']){
             this.srvMessage.error(data['message']);
-        }
-        this.reloadData();
+          }else{
+            this.srvMessage.success(data['message'] + ': the item was deleted');
+            this.reloadData();
+          }
       },
       error => this.srvMessage.error(error.message));
   }

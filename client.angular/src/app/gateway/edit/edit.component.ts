@@ -41,6 +41,7 @@ export class EditComponent implements OnInit {
     if(this.id !== '.'){
       this.srvGateway.select(this.id).subscribe(res => {
         this.model = res.data;
+        this.id = res.data.sn;
       });
     }
   }
@@ -86,6 +87,9 @@ export class EditComponent implements OnInit {
     this.srvGateway.list().subscribe(res => {
         this.model = res.data;
         this.model.devices = !this.model.devices ? [] : this.model.devices;
+        if(!res.data['status']){
+          this.srvMessage.error(res.data['message']);
+        }
     });
   }
 
@@ -95,11 +99,13 @@ export class EditComponent implements OnInit {
 
     if(this.FrmMn.form.valid){
       if(this.id !== '.'){
-          this.srvGateway.update(this.model.sn, this.model).subscribe(
+          this.srvGateway.update(this.id, this.model).subscribe(
               data => {
                 console.log(data);
                 if(!data['status']){
                   this.srvMessage.error(data['message']);
+                }else{
+                  this.srvMessage.success(data['message'] + ': the item was updated.');
                 }
               },
               error => this.srvMessage.error(error.message)
@@ -110,6 +116,8 @@ export class EditComponent implements OnInit {
               console.log(data);
               if(!data['status']){
                 this.srvMessage.error(data['message']);
+              }else{
+                this.srvMessage.success(data['message'] + ': the item was inserted.');
               }
             },
             error => this.srvMessage.error(error.message)

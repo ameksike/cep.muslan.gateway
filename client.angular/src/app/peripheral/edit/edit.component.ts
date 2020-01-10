@@ -57,6 +57,7 @@ export class EditComponent implements OnInit {
     if(this.id != -1){
       this.srvPeripheral.select(this.pid, this.id).subscribe(res => {
         this.model = res.data;
+        this.id = res.data.uid;
         if(!res.data['status']){
           this.srvMessage.error(res.data['message']);
         }
@@ -67,6 +68,7 @@ export class EditComponent implements OnInit {
   reloadData() {
     this.srvPeripheral.list(this.pid).subscribe(res => {
         this.model = res.data;
+        this.id = res.data.uid;
         if(!res.data['status']){
           this.srvMessage.error(res.data['message']);
         }
@@ -77,11 +79,13 @@ export class EditComponent implements OnInit {
   onSave(){
     if(this.FrmMn.form.valid){
       if(this.id != -1){
-          this.srvPeripheral.update(this.pid, this.model.uid, this.model).subscribe(
+          this.srvPeripheral.update(this.pid, this.id, this.model).subscribe(
               data => {
                 console.log(data);
                 if(!data['status']){
                   this.srvMessage.error(data['message']);
+                }else{
+                  this.srvMessage.success(data['message'] + ': the item was updated');
                 }
               },
               error => this.srvMessage.error(error.message)
@@ -93,7 +97,7 @@ export class EditComponent implements OnInit {
               if(!data['status']){
                 this.srvMessage.error(data['message']);
               }else{
-                this.srvMessage.success(data['message']);
+                this.srvMessage.success(data['message'] + ': the item was inserted');
               }
             },
             error => this.srvMessage.error(error.message)

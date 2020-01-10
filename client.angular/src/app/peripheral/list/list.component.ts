@@ -36,7 +36,7 @@ export class ListComponent implements OnInit {
         this.list = res.data;
         if(!res.data['status']){
           this.srvMessage.error(res.data['message']);
-      }
+        }
     });
   }
 
@@ -69,10 +69,16 @@ export class ListComponent implements OnInit {
     this.srvPeripheral.delete(this.pid, item.uid)
     .subscribe(
       data => {
+        if(!(data instanceof Object))
+          data = JSON.parse(data);
+
         console.log(data);
-        this.reloadData();
+
         if(!data['status']){
           this.srvMessage.error(data['message']);
+        }else{
+          this.srvMessage.success(data['message'] + ': the item was deleted');
+          this.reloadData();
         }
       },
       error => this.srvMessage.error(error.message)
