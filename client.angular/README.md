@@ -8,6 +8,7 @@ It is a client RESTful services writed on Angular, require a server RESTful serv
 - npm install
 - npm start
 
+![Screenshot](readme/demo02.png)
 
 # config 
 - client-angular/src/data/config.json => config por read server restful services 
